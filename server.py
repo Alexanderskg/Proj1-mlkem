@@ -6,7 +6,9 @@ socket.listen(5)
 
 while True:
     clientsocket, address = socket.accept()
-    print(f"Connection with server established")
+    print(f"Connection with server established!")
     clientsocket.send(bytes("Test string") , "utf-8")
     clientsocket.close()
+
+
     
