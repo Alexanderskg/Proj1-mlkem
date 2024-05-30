@@ -10,7 +10,7 @@ def recv_message(client_socket):
     message_recv = ""
     while True:
         msg = client_socket.recv(100)
-        if len(msg) <= 0:
+        if len(msg) <= 0: #aumentar connection timeout
             print("no message received")
             break
         message_recv += msg.decode("utf-8")
@@ -28,18 +28,22 @@ def main():
 
     client_socket.connect((host, port))
 
-    flag_recv = True
-
     while True:
-        
-        if flag_recv == True:
-            received_message = recv_message(client_socket)
-            flag_recv = False
 
-        send_message(client_socket,"csb")
+        #primer mensaje
+        recv_message(client_socket)
+        message_send = "mensaje de cliente 1"
+        send_message(client_socket,message_send)
 
+        #segundo mensaje
+        recv_message(client_socket)
+        message_send = "mensaje de cliente 2"
+        send_message(client_socket,message_send)
+
+        #seguridad
         received_message = recv_message(client_socket)
-        if not received_message:
+        sent_message = send_message(client_socket,message_send)
+        if not received_message or not sent_message:
             break
 
         client_socket.close()

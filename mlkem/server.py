@@ -33,13 +33,20 @@ def main():
 
 
     while True:
-        message_send = "asdf"
-        send_message(client_socket,message_send)
 
+        #primer mensaje
+        message_send = "mensaje de servidor 1"
+        send_message(client_socket,message_send)
         recv_message(client_socket)
 
+        #seundo mensaje
+        message_send = "mensaje de servidor 2"
+        send_message(client_socket,message_send)
+
+        #seguridad
         received_message = recv_message(client_socket)
-        if not received_message:
+        sent_message = send_message(client_socket,message_send)
+        if not received_message or not sent_message:
             break
 
         client_socket.close()
