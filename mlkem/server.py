@@ -2,8 +2,7 @@ import socket
 import time
 
 def send_message(client_socket,message_send):
-    client_socket.send (message_send.encode("utf-8"))
-    print(f"sent: {message_send}")
+        client_socket.send (message_send.encode("utf-8"))  
 
 def recv_message(client_socket):
     message_recv = ""
@@ -13,11 +12,8 @@ def recv_message(client_socket):
             print("no message received")
             break
         message_recv += msg.decode("utf-8")
-        print("received:", message_recv)
         break
-
     return message_recv
-
 
 def main():
 
@@ -30,30 +26,30 @@ def main():
     print(f"Connection with server established")
     
     client_socket,address = server_socket.accept()
-
+    received_message = ""
 
     while True:
-
         #primer mensaje
         message_send = "mensaje de servidor 1"
         send_message(client_socket,message_send)
-        recv_message(client_socket)
+        print(f"sent: {message_send}")
+
+        received_message = recv_message(client_socket)
+        print("received: ", received_message)
+
 
         #seundo mensaje
         message_send = "mensaje de servidor 2"
         send_message(client_socket,message_send)
-
-        #seguridad
+        print(f"sent: {message_send}")
+    
+    
         received_message = recv_message(client_socket)
-        sent_message = send_message(client_socket,message_send)
-        if not received_message or not sent_message:
-            break
+        print("received: ", received_message)
+        #print(len(received_message))
 
         client_socket.close()
-
-
-
-
+        break
 
 if __name__ == '__main__':
     main()
