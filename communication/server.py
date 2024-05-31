@@ -37,7 +37,6 @@ def main():
         received_message = recv_message(client_socket)
         print("received: ", received_message)
 
-
         #seundo mensaje
         message_send = "mensaje de servidor 2"
         send_message(client_socket,message_send)
